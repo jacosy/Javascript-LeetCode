@@ -1,3 +1,5 @@
+import { nodeModuleNameResolver } from "typescript"
+
 class TreeNode {
     val: number
     left: TreeNode | null
@@ -24,8 +26,48 @@ function postorderTraversal(root: TreeNode | null): number[] {
   }
 };
 
-const root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3, null)));
+
+  // left --> right --> root
+function postorderTraversalIterate(root: TreeNode | null): number[] {
+  if (!root) {
+    return [];
+  }
+
+  const result: number[] = [];
+  const stack: TreeNode[] = [root];
+  let preNode = root;
+
+  while (stack.length !== 0) {
+    const curNode = stack[stack.length - 1];
+    // console.log('curNode', curNode.val);
+    let goDeep = false;
+    if (curNode.left !== preNode && curNode.right !== preNode) {
+      if (curNode.right) {
+        stack.push(curNode.right);
+        goDeep = true;
+      }
+      if (curNode.left && curNode.left !== preNode) {
+        stack.push(curNode.left);
+        goDeep = true;
+      }
+    }
+
+    if (goDeep) {
+      continue;
+    }
+
+    result.push(curNode.val);
+    preNode = curNode;
+    stack.pop();
+  }
+
+  return result;
+};
+
+// const root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3)));
 // const root = new TreeNode(1);
 // const root = new TreeNode(1, new TreeNode(2));
 // const root = new TreeNode(1, null, new TreeNode(2));
-console.log(postorderTraversal(root));
+// console.log(postorderTraversal(root));
+const root = new TreeNode(3, new TreeNode(1), new TreeNode(2));
+console.log(postorderTraversalIterate(root));

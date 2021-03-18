@@ -24,8 +24,37 @@ function preorderTraversal(root: TreeNode | null): number[] {
   }
 };
 
-// const root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3, null)));
+
+function preorderTraversalIterate(root: TreeNode | null): number[] {
+  if (!root) {
+    return [];
+  }
+
+  const result: number[] = [];
+  const stack: TreeNode[] = [root];
+  
+  while (stack.length > 0) {
+    // root --> left --> right
+    const curNode = stack[stack.length - 1];
+    console.log('curNode', curNode)
+    result.push(curNode.val);
+    stack.pop();
+    
+    if (curNode.right) {
+      stack.push(curNode.right);
+    }
+
+    if (curNode.left) {
+      stack.push(curNode.left);
+    }
+  }
+  
+  return result;
+};
+
+const root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3, null)));
 // const root = new TreeNode(1);
 // const root = new TreeNode(1, new TreeNode(2));
 // const root = new TreeNode(1, null, new TreeNode(2));
 // console.log(preorderTraversal(root));
+console.log(preorderTraversalIterate(root));
