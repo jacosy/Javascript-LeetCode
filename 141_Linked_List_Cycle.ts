@@ -9,7 +9,7 @@ class ListNode {
 
 
 function hasCycle(head: ListNode | null): boolean {
-  let slow = head;
+  let slow = head?.next;
   let fast = head?.next?.next;
   while (fast) {
     if (fast === slow) {
