@@ -34,20 +34,20 @@ function postorderTraversalIterate(root: TreeNode | null): number[] {
   }
 
   const result: number[] = [];
-  const stack: TreeNode[] = [root];
+  const queue: TreeNode[] = [root];
   let preNode = root;
 
-  while (stack.length !== 0) {
-    const curNode = stack[stack.length - 1];
+  while (queue.length !== 0) {
+    const curNode = queue[queue.length - 1];
     // console.log('curNode', curNode.val);
     let goDeep = false;
     if (curNode.left !== preNode && curNode.right !== preNode) {
       if (curNode.right) {
-        stack.push(curNode.right);
+        queue.push(curNode.right);
         goDeep = true;
       }
       if (curNode.left && curNode.left !== preNode) {
-        stack.push(curNode.left);
+        queue.push(curNode.left);
         goDeep = true;
       }
     }
@@ -58,7 +58,7 @@ function postorderTraversalIterate(root: TreeNode | null): number[] {
 
     result.push(curNode.val);
     preNode = curNode;
-    stack.pop();
+    queue.pop();
   }
 
   return result;
