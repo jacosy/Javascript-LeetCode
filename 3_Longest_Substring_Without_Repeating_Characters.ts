@@ -21,3 +21,6 @@ function lengthOfLongestSubstring(s: string): number {
 
 const s = 'pwwkew';
 console.log('lengthOfLongestSubstring', lengthOfLongestSubstring(s));
+
+// Time Complexity: O(n)
+// Space Complexity: O(n)
