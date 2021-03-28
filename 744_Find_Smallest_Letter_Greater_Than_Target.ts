@@ -21,7 +21,7 @@ function nextGreatestLetter(letters: string[], target: string): string {
   return result;
 }; 
 
-// Solution 2
+// Solution 2: get the minimun value of right-bound
 function nextGreatestLetter_S2(letters: string[], target: string): string {  
   let left = 0;
   let right = letters.length - 1;
@@ -29,14 +29,13 @@ function nextGreatestLetter_S2(letters: string[], target: string): string {
     return letters[left];
   }
   
-  const actTarget = String.fromCharCode(target.charCodeAt(0) + 1);
   while (left <= right) {
     const mid = Math.floor((left + right)/2);
-    if (actTarget === letters[mid]) {
+    if (target === letters[mid]) {
       right = mid - 1;
-    } else if (actTarget > letters[mid]) {
+    } else if (target > letters[mid]) {
       left = mid + 1;
-    } else if (actTarget < letters[mid]) {
+    } else if (target < letters[mid]) {
       right = mid - 1;
     }
   }
