@@ -1,7 +1,7 @@
 function maxArea(height: number[]): number {  
   let left = 0;
   let right = height.length - 1;
-  let max = (right - left) * Math.min(height[left], height[right]);
+  let max = -1; 
   
   while (left < right) {    
     if (height[left] === height[right]) {      
