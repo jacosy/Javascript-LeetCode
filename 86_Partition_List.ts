@@ -23,32 +23,17 @@ function partition(head: ListNode | null, x: number): ListNode | null {
     if (curNode.val < x) {
       lCurNode.next = curNode;
       lCurNode = curNode;
+      geCurNode.next = null;
     } else {
       geCurNode.next = curNode;
       geCurNode = curNode;
+      lCurNode.next = null;
     }
     curNode = curNode.next;
   }
 
-  if (lCurNode.next) {
-    while (lCurNode.next) {
-      if (lCurNode.next.val >= x || !lCurNode.next) {
-        lCurNode.next = geHead.next;
-        break;
-      }
-      lCurNode = lCurNode.next;
-    }
-  } else {
-    lCurNode.next = geHead.next;
-  }
-
-  while (geCurNode.next) {
-    if (geCurNode.next.val < x) {
-      geCurNode.next = null;
-      break;
-    }
-    geCurNode = geCurNode.next;
-  }
+  lCurNode.next = geHead.next;
+  geCurNode = geCurNode.next!;
 
   return lHead.next;
 };
