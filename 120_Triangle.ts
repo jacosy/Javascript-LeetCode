@@ -23,7 +23,20 @@ function minimumTotal(triangle: number[][]): number {
   }
 };
 
+function minimumTotalByFlipTriangelUpsideDown(triangle: number[][]): number {
+  const triLen = triangle.length;  
+  const ans = [...triangle[triLen - 1]];
+  for (let i = triLen - 2; i >= 0; i--) {
+    for (let j = 0; j <= triangle[i].length; j++) {
+      ans[j] = triangle[i][j] + Math.min(ans[j], ans[j+1]);
+    }
+    ans.pop();
+  }
+  return ans[0];
+};
+
 const triangle = [[2],[3,4],[6,5,7],[4,1,8,3]];
 console.log(`The minimun sum of the triangle: [${triangle}] is`, minimumTotal(triangle));
+console.log(`The minimun sum of the triangle: [${triangle}] by fliping the triangle upside down is`, minimumTotalByFlipTriangelUpsideDown(triangle));
 
 export {};
