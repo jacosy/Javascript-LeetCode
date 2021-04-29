@@ -16,10 +16,10 @@ function preorderTraversal(root: TreeNode | null): number[] {
   return result;
   
   function traverseTreeNode(node: TreeNode | null): void {
-    if (node) {
-      result.push(node.val);
-      traverseTreeNode(node.left);
-      traverseTreeNode(node.right);
+    if (node!) {
+      result.push(node!.val);
+      traverseTreeNode(node!.left);
+      traverseTreeNode(node!.right);
     }
   }
 };
@@ -30,31 +30,22 @@ function preorderTraversalIterate(root: TreeNode | null): number[] {
     return [];
   }
 
-  const result: number[] = [];
+  const ans: number[] = [];
   const stack: TreeNode[] = [root];
-  
   while (stack.length > 0) {
-    // root --> left --> right
-    const curNode = stack[stack.length - 1];
-    console.log('curNode', curNode)
-    result.push(curNode.val);
-    stack.pop();
-    
-    if (curNode.right) {
-      stack.push(curNode.right);
-    }
-
-    if (curNode.left) {
-      stack.push(curNode.left);
-    }
+    const node = stack.pop();
+    ans.push(node!.val);
+    node!.right && stack.push(node!.right);
+    node!.left && stack.push(node!.left);
   }
-  
-  return result;
+  return ans;
 };
 
 const root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3, null)));
 // const root = new TreeNode(1);
 // const root = new TreeNode(1, new TreeNode(2));
 // const root = new TreeNode(1, null, new TreeNode(2));
-// console.log(preorderTraversal(root));
-console.log(preorderTraversalIterate(root));
+console.log(`Recursive Preorder Traversal`, preorderTraversal(root));
+console.log(`Iterative Preorder Traversal`, preorderTraversalIterate(root));
+
+export {};
