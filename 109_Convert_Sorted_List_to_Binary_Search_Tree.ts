@@ -23,7 +23,7 @@ class TreeNode {
 }
 
 
-function sortedListToBST(head: ListNode | null): TreeNode | null {
+function sortedListToBST_nlogn(head: ListNode | null): TreeNode | null {
   if (!head) {
     return null;
   }
@@ -48,6 +48,35 @@ function sortedListToBST(head: ListNode | null): TreeNode | null {
   }
 };
 
+function sortedListToBST(head: ListNode | null): TreeNode | null {
+  if (!head) {
+    return null;
+  }
+  
+  let count = 0;
+  let curNode = head;
+  while (curNode) {
+    count += 1;
+    curNode = curNode.next!;
+  }
+  curNode = head;
+  
+  return bstHelper(1, count);
+  
+  function bstHelper(start: number, end: number): TreeNode | null {
+    if (start > end) {
+      return null;
+    }
+
+    const mid = Math.ceil((start + end) / 2);    
+    const left = bstHelper(start, mid - 1);
+    const tn = new TreeNode(curNode.val);
+    curNode = curNode.next!;
+    tn.left = left;
+    tn.right = bstHelper(mid + 1, end);
+    return tn;
+  }
+};
 const head = new ListNode(
   -10,
   new ListNode(
@@ -64,4 +93,5 @@ const head = new ListNode(
     )
   )
 );
-console.log(`Convert Sorted List: ${head} to Binary Search Tree`, sortedListToBST(head));
+console.log(`Convert Sorted List: ${head} to Binary Search Tree: time complexity: O(nlogn)`, sortedListToBST_nlogn(head));
+console.log(`Convert Sorted List: ${head} to Binary Search Tree: time complexity: O(n)`, sortedListToBST(head));
